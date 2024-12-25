@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+	body{
+    
+        background-color:#B3E5FC;
+        border-radius: 10px;
+    
+    }
+	.fixed-bottom-form {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background-color: #bea0ff;
+		border-top: 1px solid #ddd;
+		padding: 10px;
+		box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+		z-index: 1000;
+	}
+	
+	.fixed-bottom-form .input-group {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+	
+	.fixed-bottom-form .btn {
+		flex-shrink: 0;
+	}
+	
+	/* Increase the size of the form fields */
+	.fixed-bottom-form .larger-form input[type="text"],
+	.fixed-bottom-form .larger-form textarea,
+	.fixed-bottom-form .larger-form select {
+		font-size: 18px;
+		
+		border-radius: 5px;
+		border: 1px solid #ffffff;
+		width: 1380px;
+		margin: 10px;
+		margin-right: 10px;
+	}
+	
+	/* For placeholder text */
+	.fixed-bottom-form .larger-form input::placeholder,
+	.fixed-bottom-form .larger-form textarea::placeholder {
+		font-size: 16px;
+		color: #aaa;
+	}
+	
+	
+</style>
+
+
+	<div class="container text-center">
+		<div class="row">
+			<div class="col-12">
+
+
+	<h1>Meeps!</h1>
+<br/>
+	{% for meep in meeps %}
+		<div class="alert alert-light" role="alert">
+<div class="container">
+	<div class="row">
+		<div class="col-1">
+            {% if meep.user.profile.profile_image %}
+                <img src="{{ meep.user.profile.profile_image.url }}" width="50" height="50" class="rounded-circle" alt="{{ meep.user.username }}">
+            {% else %}
+                <img src="{% static 'img1.jpg' %}" width="50" height="50" class="rounded-circle" alt="{{ meep.user.username }}">
+            {% endif %}
+		</div>
+
+		<div class="col-11">
+		  {{ meep.body }}<br/>
+		  <small class="text-muted">
+		  	({{ meep.created_at}}) By 
+		  	@{{ meep.user.username }}
+		  	&nbsp;&nbsp;
+		  	{{ meep.number_of_likes }}  
+
+		  	{% if user in meep.likes.all %}
+		  	  <a href="{% url 'meep_like' meep.id %}">
+	<i class="fa-solid fa-heart" style="color:red"></i></a>
+		  	{% else %}
+		  		<a href="{% url 'meep_like' meep.id %}">
+		  <i class="fa fa-heart-o" style="color:red"></i></a>
+		  	{% endif %}
+		  	&nbsp;&nbsp;
+		  	<a href="{% url 'meep_show' meep.id %}">
+	<i class="fa-solid fa-share" style="color:gray"></i>
+		  	</a>
+		  	
+
+		  </small>
+		</div><br/><br/>
+	
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+
+</div>
+
+<div>
+<br/><br/><br/>
+{% if form %}
+<div class="fixed-bottom-form">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="input-group">
+            <div class="form-group larger-form">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" style="border-radius: 10px" class="btn btn-primary">Tweet</button>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+</div>
+
+{% endblock %}

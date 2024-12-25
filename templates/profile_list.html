@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+body{
+    
+    background-color:#B3E5FC;
+    border-radius: 10px;
+
+}
+
+
+.card{
+  width: 550px;
+  border-width: 20px;
+  border: none;
+  border-radius: 10px;
+   
+  background-color: #fff;
+}
+
+
+
+.stats{
+
+      background: #f2f5f8 !important;
+
+    color: #000 !important;
+}
+.articles{
+  font-size:10px;
+  color: #a1aab9;
+}
+.number1{
+  font-weight:500;
+}
+.followers{
+    font-size:10px;
+  color: #a1aab9;
+
+}
+.number2{
+  font-weight:500;
+}
+.rating{
+    font-size:10px;
+  color: #a1aab9;
+}
+.number3{
+  font-weight:500;
+}
+</style>
+
+{% if profiles %}
+
+        {% for profile in profiles %}
+
+<div class="container mt-5 d-flex justify-content-center">
+
+    <div class="card p-3">
+
+        <div class="d-flex align-items-center">
+
+        <div class="image" style="margin-left: 10px;">
+          {% if profile.profile_image %}
+          <img src="{{ profile.profile_image.url }}" style="width:250px; height:180px;" class="img-fluid " alt="{{profile.user.username}}"><br>
+          {% else %}
+          <!-- style="width:200px; height:100px;" -->
+            <img src="{% static 'img1.jpg' %}" style="width:250px; height:180px;"  class="img-fluid " alt="Profile Image">
+          {% endif %}        </div>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="ml-3 w-100">
+
+            
+           <h4 class="mb-0 mt-0">{{ profile.user.username }}</h4>
+           <span><a href="{% url 'profile' profile.user.id %}" class="follower-link">@{{ profile.user.username|lower }}</a></span>
+
+
+
+
+           <div class="button mt-2 d-flex flex-row align-items-center">
+
+            <p class="card-text"><small class="text-body-secondary">{{ profile.date_modified }}</small></p>
+
+               
+           </div>
+
+
+        </div>
+
+            
+        </div>
+        
+    </div>
+     
+ </div>
+ {% endfor %}
+
+    {%endif%}
+
+ {% endblock %}

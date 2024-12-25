@@ -1,0 +1,72 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}">
+        <i class="bi-back"></i>
+        <span>TWEEKS</span>
+    </a>
+
+    <div class="d-lg-none ms-auto me-4">
+        <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-lg-5 me-lg-auto">
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link click-scroll" href="{% url 'profile_list' %}">Profile List</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link click-scroll"  href="{% url 'profile' request.user.id %}"> my Profile</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link click-scroll" href="{% url 'logout' %}"> Logout</a>
+            </li>
+
+          {% else %}
+
+            <li class="nav-item">
+                <a class="nav-link click-scroll" href="{% url 'login' %}"> Login</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link click-scroll" href="{% url 'register' %}"> Register</a>
+            </li>
+
+          {% endif %}
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">SEARCH</a>
+
+                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                    <li><a class="dropdown-item"  href="{% url 'search' %}">Search Meep</a></li>
+
+                    <li><a class="dropdown-item" href="{% url 'search_user' %}">Search User</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        {% if user.is_authenticated %}
+
+          <div class="d-none d-lg-block">
+            <a href="{% url 'profile' request.user.id %}" >
+              {% if user.profile.profile_image %}
+                <img src="{{ user.profile.profile_image.url }}" class="rounded-circle" height=40 width=40>
+              {% else %}
+                <img src="{% static 'img1.jpg' %}" class="img-fluid rounded-circle" alt="Profile Image" height=30 width=30>
+              {% endif %}
+            </a>
+              
+          </div>
+        
+        {% endif %}
+        
+    </div>
+  </div>
+</nav>

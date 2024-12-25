@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<br><br><br>
+{% if user.is_authenticated %}
+<h1>You Have Already Logedin</h1>
+{% else %}
+    <div class="col-md-6 offset-md-3">
+        <h1>Login</h1> <br>
+        <p style="border: 2px solid black;"></p> 
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+            <label for="exampleInputEmaill" class="form-label">
+            Username</label>
+            <input type="text" style="border: 2px solid black;" class="form-control" name="username" placeholder="enter your name" >
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+            </div>
+            <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">
+            Password</label>
+            <input type="password" class="form-control" style="border: 2px solid black;" name="password" placeholder="enter your password">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-secondary">Submit</button>
+            </form>
+    </div><br><br><br>
+{% endif %}
+{% endblock %}
