@@ -1,5 +1,5 @@
 Twitter Clone - Django Web App
-    A full-featured Twitter clone built using Django, following the Codemy YouTube tutorial series. This project replicates core Twitter functionalities, showcasing my skills in backend logic,
+    A full-featured Twitter clone built using Django. This project replicates core Twitter functionalities, showcasing my skills in backend logic,
   frontend UI with Bootstrap, and Django best practices.
 
   User Authentication :
